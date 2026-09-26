@@ -5,7 +5,8 @@ import WorkoutActions from "@/components/workouts/WorkoutActions";
 const WorkoutDetails = async ({ params }: { params: Promise<{ workoutId: string }> }) => {
   const { workoutId } = await params;
 
-  const res = await fetch("http://localhost:3000/data.json");
+  // const res = await fetch("http://localhost:3000/data.json");
+  const res = await fetch("/data.json");
 
   if (!res.ok) {
     throw new Error("Failed to fetch workout data");

@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import fs from "fs/promises";
+import path from "path";
 
 type Workout = {
   id: number;
@@ -19,12 +21,23 @@ type Workout = {
   instructions: string[];
 };
 
+// const getWorkout = async (): Promise<Workout[]> => {
+//   const res = await fetch('http://localhost:3000/data.json');
+//   const data = await res.json();
+//   return data;
+// };
+// const getWorkout = async (): Promise<Workout[]> => {
+//   const res = await fetch('/data.json');
+//   const data = await res.json();
+//   return data;
+// };
 const getWorkout = async (): Promise<Workout[]> => {
-  const res = await fetch('http://localhost:3000/data.json');
-  const data = await res.json();
-  return data;
-};
+  const filePath = path.join(process.cwd(), "public", "data.json");
 
+  const file = await fs.readFile(filePath, "utf-8");
+
+  return JSON.parse(file);
+};
 const WorkoutLibrary = async () => {
   const workData = await getWorkout();
 
